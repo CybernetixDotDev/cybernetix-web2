@@ -1,0 +1,219 @@
+@import "tailwindcss";
+
+/* ================================
+   Cosmic Theme – Eternal Princess
+   ================================ */
+
+:root {
+  /* Core palette (dark-first) */
+  --background: #05060b;         /* deep cosmic */
+  --foreground: #e8e9ff;         /* warm-white with blue bias */
+
+  /* Accents */
+  --rose:       #ffc1e5;         /* light pink */
+  --violet:     #c7b6ff;         /* lavender-violet */
+  --sky:        #bfe3ff;         /* light blue */
+  --cyan:       #89ecff;         /* aqua accent */
+
+  /* UI surfaces */
+  --card:       rgba(255,255,255,0.04);
+  --card-2:     rgba(255,255,255,0.06);
+  --border:     rgba(255,255,255,0.12);
+  --glass:      rgba(255,255,255,0.08);
+
+  /* Glows */
+  --glow-soft:  0 0 24px rgba(255, 200, 255, 0.20);
+  --glow-ep:    0 0 36px rgba(191, 227, 255, 0.25);
+}
+
+@theme inline {
+  /* Map Tailwind tokens to our variables */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-border: var(--border);
+
+  /* Optional font hooks (replace with your fonts if you add them) */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New";
+
+  /* Brand gradient swatch */
+  --gradient-ep: linear-gradient(90deg, var(--rose), var(--violet), var(--sky));
+}
+
+/* Light mode fallback (if you decide to support it) */
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: #ffffff;
+    --foreground: #171717;
+    --card: rgba(0,0,0,0.04);
+    --card-2: rgba(0,0,0,0.06);
+    --border: rgba(0,0,0,0.1);
+    --glass: rgba(0,0,0,0.06);
+  }
+}
+
+/* ================================
+   Base
+   ================================ */
+
+html, body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--rose) 40%, transparent);
+  color: #fff;
+}
+
+/* Links – subtle, elegant */
+a {
+  text-decoration: none;
+  color: color-mix(in oklab, var(--sky) 80%, var(--foreground));
+}
+a:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, #ffffff 30%, transparent);
+  text-underline-offset: 3px;
+}
+
+/* Scrollbar (WebKit) */
+*::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--violet), var(--sky));
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--rose), var(--violet));
+}
+
+/* ================================
+   Keyframes
+   ================================ */
+
+@keyframes gradientMove {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shimmer {
+  0%   { opacity: .6; filter: saturate(1); }
+  50%  { opacity: 1;  filter: saturate(1.15); }
+  100% { opacity: .6; filter: saturate(1); }
+}
+
+@keyframes float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+/* ================================
+   Components (utility-esque helpers)
+   ================================ */
+
+@layer components {
+  /* Gradient text like “The Eternal Princess speaks:” */
+  .ep-gradient-text {
+    background-image: var(--gradient-ep);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .ep-gradient-animated {
+    background-image: var(--gradient-ep);
+    background-size: 200% 200%;
+    animation: gradientMove 6s ease-in-out infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Glass card + border */
+  .card-glass {
+    background: var(--card);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 1.25rem; /* ~2xl */
+    box-shadow: var(--glow-soft);
+  }
+
+  /* Subtle hover lift for cards/buttons */
+  .hover-lift {
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--glow-ep);
+  }
+
+  /* Soft outer glow halo */
+  .halo {
+    position: relative;
+  }
+  .halo::before {
+    content: "";
+    position: absolute;
+    inset: -16px;
+    z-index: -1;
+    border-radius: 9999px;
+    background: radial-gradient(closest-side, color-mix(in oklab, var(--rose) 30%, transparent),
+                                           color-mix(in oklab, var(--violet) 22%, transparent),
+                                           color-mix(in oklab, var(--sky) 18%, transparent) 70%);
+    filter: blur(18px);
+    opacity: .9;
+    animation: shimmer 5.5s ease-in-out infinite;
+  }
+
+  /* Buttons that match the vibe */
+  .btn-ep {
+    @apply inline-flex items-center gap-2 rounded-xl border px-5 py-3;
+    background: color-mix(in oklab, var(--glass) 100%, transparent);
+    border-color: var(--border);
+    color: var(--foreground);
+    transition: background .2s ease, border-color .2s ease, transform .2s ease;
+  }
+  .btn-ep:hover {
+    background: color-mix(in oklab, var(--glass) 0%, #ffffff 12%);
+    border-color: color-mix(in oklab, var(--border) 60%, #ffffff);
+    transform: translateY(-1px);
+  }
+
+  /* Dividers on dark */
+  .divider-ep {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+}
+
+/* ================================
+   Utilities (tiny helpers)
+   ================================ */
+
+@layer utilities {
+  .bg-ep {
+    background: radial-gradient(60rem 60rem at 50% -10%,
+      color-mix(in oklab, var(--rose) 22%, transparent),
+      transparent 60%),
+      radial-gradient(40rem 40rem at -10% 40%,
+      color-mix(in oklab, var(--sky) 18%, transparent),
+      transparent 60%);
+  }
+  .glow-ep { box-shadow: var(--glow-ep); }
+  .float    { animation: float 6s ease-in-out infinite; }
+}
