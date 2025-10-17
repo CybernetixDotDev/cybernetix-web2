@@ -10,7 +10,7 @@ export function Footer() {
           <div className="flex items-center gap-6">
             <a href="#values" className="hover:text-white">Values</a>
             <a href="#tech" className="hover:text-white">Tech</a>
-            <a href="#join" className="hover:text-white">Join</a>
+            <a href="/join" className="hover:text-white">Join</a>
           </div>
         </div>
       </div>

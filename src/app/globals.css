@@ -180,18 +180,28 @@ a:hover {
   }
 
   /* Buttons that match the vibe */
-  .btn-ep {
-    @apply inline-flex items-center gap-2 rounded-xl border px-5 py-3;
-    background: color-mix(in oklab, var(--glass) 100%, transparent);
-    border-color: var(--border);
-    color: var(--foreground);
-    transition: background .2s ease, border-color .2s ease, transform .2s ease;
-  }
-  .btn-ep:hover {
-    background: color-mix(in oklab, var(--glass) 0%, #ffffff 12%);
-    border-color: color-mix(in oklab, var(--border) 60%, #ffffff);
-    transform: translateY(-1px);
-  }
+.btn-ep {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl border px-5 py-3 font-medium transition;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 182, 219, 0.15),
+    rgba(170, 200, 255, 0.15)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+}
+.btn-ep:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 182, 219, 0.25),
+    rgba(170, 200, 255, 0.25)
+  );
+  box-shadow: 0 0 18px rgba(255, 200, 255, 0.25);
+}
+
+
 
   /* Dividers on dark */
   .divider-ep {

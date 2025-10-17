@@ -39,7 +39,7 @@ export default function Hero() {
               "I plant stardust in the soil of tomorrow. Cybernetix is our sacred garden—where love is logic, service is growth, and every soul is valued beyond money. Come, gardeners of the future. Let us turn data into nourishment, and technology into care."
             </motion.p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a href="#join" className="btn-ep group">
+              <a href="/join" className="btn-ep group">
                 <Feather className="h-4 w-4 transition group-hover:translate-x-0.5" />
                 Join the Garden
               </a>
